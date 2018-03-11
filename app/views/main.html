@@ -1,0 +1,18 @@
+<div class="content">
+    <h3 class="header">Welcome to Request Bin Application!!</h3>
+    <form name="requestBinForm" class="requestForm" novalidate>
+        <div class="form-group row" ng-class="{ 'has-error' : requestBinForm.url.$invalid && requestBinForm.url.$touched}">
+            <label class="control-label col-sm-1 text-right">URL: </label>
+            <div class="col-sm-6">
+                <input class="form-control" type="url" ng-model="url" name="url" placeholder="Enter Request bin URL" required ng-focus="showHelpText = true" ng-blur="showHelpText = false"/>
+                <p class="help-block" ng-if="(requestBinForm.url.$invalid && requestBinForm.url.$touched)|| showHelpText">Enter valid URL</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 col-sm-offset-1">
+                <button type="button" class="btn btn-primary" ng-click="submitRequest('GET')" ng-disabled="requestBinForm.$pristine && requestBinForm.$invalid">Submit GET</button>
+                <button type="button" class="btn btn-primary" ng-click="submitRequest('POST')" ng-disabled="requestBinForm.$pristine && requestBinForm.$invalid">Submit POST</button>
+            </div>
+        </div>
+    </form>
+</div>
