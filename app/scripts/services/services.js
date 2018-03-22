@@ -25,9 +25,14 @@ angular.module('requestBinApp')
                 }
                 var sendTime = (new Date()).getTime();
                 var receiveTime;
+                var headers = {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
                 $http({
                     url: url,
                     method: method,
+                    headers: headers,
                     data: data
                 }).then(function(data) {
                     receiveTime = (new Date()).getTime();
@@ -41,27 +46,29 @@ angular.module('requestBinApp')
                 return deferred.promise;
             },
             sendFinalJson : function() {
+                var headers = {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
                 $http({
                     url: requestBinUrl,
                     method: 'POST',
+                    headers: headers,
                     data: JSONobj
                 });
             }
         }
         window.onbeforeunload = function(){
-            console.log('onbeforeunload');
             serviceObj.sendFinalJson();
         }
 
         function getResponseTime(sendTime, receiveTime, method, url) {
             var responseTime = receiveTime - sendTime;
-            console.log(responseTime);
             JSONobj.push({
                 "method" : method,
                 "url" : url,
                 "responseTime" : responseTime.toString()
             })
-            console.log(JSONobj);
         }
 
         return serviceObj;
